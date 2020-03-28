@@ -1,0 +1,16 @@
+server:
+  port: 8191
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/micro_service_course
+    username: user
+    password: password
+  jpa:
+    properties:
+      hibernate:
+        default_schema: 'demo_application'
