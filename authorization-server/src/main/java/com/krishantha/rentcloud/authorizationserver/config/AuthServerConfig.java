@@ -21,7 +21,6 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     public AuthServerConfig(final PasswordEncoder passwordEncoder,
                             final DataSource dataSource,
                             final AuthenticationManager authenticationManager) {
-        this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
         this.dataSource = dataSource;
         this.authenticationManager = authenticationManager;
