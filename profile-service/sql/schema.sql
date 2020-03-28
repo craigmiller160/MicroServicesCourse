@@ -1,6 +1,6 @@
 CREATE SCHEMA profile_service;
 
-CREATE TABLE customers (
+CREATE TABLE profile_service.customers (
     customer_id BIGSERIAL NOT NULL,
     first_name VARCHAR(255),
     last_name VARCHAR(255),
