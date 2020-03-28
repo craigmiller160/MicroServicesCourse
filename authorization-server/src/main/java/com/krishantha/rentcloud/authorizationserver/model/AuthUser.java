@@ -2,9 +2,13 @@ package com.krishantha.rentcloud.authorizationserver.model;
 
 import com.krishantha.rentcloud.authorizationserver.entity.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 public class AuthUser implements UserDetails {
 
@@ -14,6 +18,7 @@ public class AuthUser implements UserDetails {
     private boolean accountNonExpired;
     private String password;
     private String userName;
+    private List<GrantedAuthority> authorities;
 
     public AuthUser(final User user) {
         enabled = user.getEnabled() == 1;
@@ -22,6 +27,13 @@ public class AuthUser implements UserDetails {
         accountNonExpired = user.getAccountNonExpired() == 1;
         password = user.getPassword();
         userName = user.getUsername();
+        authorities = new ArrayList<>();
+        user.getRoles().forEach(role -> {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+            role.getPermissions().forEach(permission -> {
+                authorities.add(new SimpleGrantedAuthority(permission.getName()));
+            });
+        });
     }
 
     @Override
@@ -36,8 +48,7 @@ public class AuthUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // TODO finish this
-        return null;
+        return authorities;
     }
 
     @Override
