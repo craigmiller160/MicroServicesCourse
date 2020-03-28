@@ -5,6 +5,7 @@ import com.krishantha.rent.demoapplication.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -25,4 +26,9 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findAll();
     }
 
+    @Override
+    public Student fetchStudentById(int id) {
+        Optional<Student> student = studentRepository.findById(id);
+        return student.orElse(null);
+    }
 }
