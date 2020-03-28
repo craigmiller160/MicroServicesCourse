@@ -6,3 +6,5 @@ spring:
       server:
         git:
           uri: https://github.com/craigmiller160/practice-spring-cloud-config-store
+          search-paths:
+            - '*service'
