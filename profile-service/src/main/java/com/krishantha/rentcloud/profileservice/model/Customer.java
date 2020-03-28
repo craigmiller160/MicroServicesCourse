@@ -1,4 +1,4 @@
-package com.krishantha.rent.demoapplication.modelstuff;
+package com.krishantha.rentcloud.profileservice.model;
 
 import lombok.Data;
 
