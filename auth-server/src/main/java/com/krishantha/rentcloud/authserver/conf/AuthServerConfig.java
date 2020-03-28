@@ -21,7 +21,7 @@ public class AuthServerConfig implements AuthorizationServerConfigurer {
 
     @Override
     public void configure(final AuthorizationServerSecurityConfigurer config) throws Exception {
-
+        config.checkTokenAccess("permitAll()");
     }
 
     @Override
