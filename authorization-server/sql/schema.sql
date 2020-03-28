@@ -1,6 +1,6 @@
 CREATE SCHEMA auth_server;
 
-CREATE TABLE auth_sever.oauth_client_details (
+CREATE TABLE auth_server.oauth_client_details (
      client_id VARCHAR(255) NOT NULL,
      client_secret VARCHAR(255) NOT NULL,
      web_server_redirect_uri VARCHAR(2048) DEFAULT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE auth_server.oauth_client_token (
 CREATE TABLE auth_server.oauth_access_token (
     token_id VARCHAR(256),
     token BYTEA,
-    authentication_id VARCHAR(256) PRIMARY KEY,
+    authentication_id VARCHAR(256),
     user_name VARCHAR(256),
     client_id VARCHAR(256),
     authentication BYTEA,
