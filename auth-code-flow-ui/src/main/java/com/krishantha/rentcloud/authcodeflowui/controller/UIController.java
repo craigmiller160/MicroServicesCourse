@@ -11,4 +11,9 @@ public class UIController {
         return "home";
     }
 
+    @GetMapping("/secure")
+    public String loadSecureUI() {
+        return "secure";
+    }
+
 }
