@@ -33,9 +33,9 @@ CREATE TABLE auth_server.user (
     password VARCHAR(1024) NOT NULL,
     email VARCHAR(1024) NOT NULL,
     enabled SMALLINT NOT NULL,
-    accountNonExpired SMALLINT NOT NULL,
-    credentialsNonExpired SMALLINT NOT NULL,
-    accountNonLocked SMALLINT NOT NULL,
+    account_non_expired SMALLINT NOT NULL,
+    credentials_non_expired SMALLINT NOT NULL,
+    account_non_locked SMALLINT NOT NULL,
     PRIMARY KEY (id)
 );
 
