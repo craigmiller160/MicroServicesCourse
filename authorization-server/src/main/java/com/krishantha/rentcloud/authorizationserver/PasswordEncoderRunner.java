@@ -7,7 +7,7 @@ public class PasswordEncoderRunner {
 
     public static void main(String[] args) {
         final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        final String result = passwordEncoder.encode("npass");
+        final String result = passwordEncoder.encode("password");
         System.out.println(result);
     }
 

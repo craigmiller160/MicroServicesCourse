@@ -9,3 +9,6 @@ spring:
           username: craigmiller160@gmail.com
           search-paths:
             - '*'
+logging:
+  level:
+    org.springframework.security: DEBUG
