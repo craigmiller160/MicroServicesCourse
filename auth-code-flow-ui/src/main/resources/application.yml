@@ -1,5 +1,9 @@
 server:
   port: 8084
+  servlet:
+    session:
+      cookie:
+        name: KSESSION
 security:
   oauth2:
     client:
