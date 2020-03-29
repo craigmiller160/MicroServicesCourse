@@ -5,5 +5,5 @@ spring:
     name: auth-server
 logging:
   level:
-    org.hibernate: DEBUG
+    org.hibernate: ERROR
     org.springframework.security: DEBUG

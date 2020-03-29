@@ -16,7 +16,7 @@ VALUES ('mobile', '{bcrypt}$2a$10$gPhlXZfms0EpNHX0.HHptOhoFD1AoxSr/yUIdTqA8vtjeP
      (2,2),  /* read operator */
      (3,2);  /* update operator */
 INSERT INTO auth_server.user (id, username,password, email, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked)
-VALUES ('1', 'krish','{bcrypt}$2a$10$ODGwrk2ufy5d7T6afmACwOA/6j6rvXiP5amAMt1YjOQSdEw44QdqG', 'k@krishantha.com', '1', '1', '1', '1'),
+VALUES ('1', 'krish','{bcrypt}$2a$10$Hy78BrPoCuC3jVgOhj/zVuFNnJM2glwdIsl0G35XfDBGrCF4nKOR6', 'k@krishantha.com', '1', '1', '1', '1'),
 ('2', 'suranga', '{bcrypt}$2a$10$wQ8vZl3Zm3.zDSIcZEYym.bGq3fPMJXH9k.Vhudcfr6O6KQwDPSt6','k@krishantha.com', '1', '1', '1', '1');
 
 INSERT INTO auth_server.role_user (role_id, user_id)
