@@ -3,15 +3,13 @@ package com.krishantha.rentcloud.authorizationserver.service;
 import com.krishantha.rentcloud.authorizationserver.entity.User;
 import com.krishantha.rentcloud.authorizationserver.model.AuthUser;
 import com.krishantha.rentcloud.authorizationserver.repository.UserRepository;
-import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-@Service
-@Primary
+@Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
@@ -22,6 +20,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(final String name) throws UsernameNotFoundException {
+        System.out.println("TRYING TO LOAD"); // TODO delete this
         final User user = userRepository.findByUsername(name)
                 .orElseThrow(() -> new UsernameNotFoundException("Couldn't find user with name " + name));
         final var authUser = new AuthUser(user);

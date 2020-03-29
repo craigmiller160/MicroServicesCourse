@@ -3,3 +3,8 @@ server:
 spring:
   application:
     name: profile-service
+logging:
+  level:
+    org:
+      hibernate:
+        type: trace
