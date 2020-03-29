@@ -14,13 +14,12 @@ VALUES ('mobile', '{bcrypt}$2a$10$gPhlXZfms0EpNHX0.HHptOhoFD1AoxSr/yUIdTqA8vtjeP
      (3,1), /* update admin */
      (4,1), /* delete admin */
      (2,2),  /* read operator */
-     (3,2),  /* update operator */
-     (2,3), /* read operator */
-     (3,3); /* update operator */
+     (2,3), /* read editor */
+     (3,3); /* update editor */
 INSERT INTO auth_server.user (id, username,password, email, enabled, account_non_expired, credentials_non_expired, account_non_locked)
 VALUES ('1', 'krish','{bcrypt}$2a$10$Hy78BrPoCuC3jVgOhj/zVuFNnJM2glwdIsl0G35XfDBGrCF4nKOR6', 'k@krishantha.com', '1', '1', '1', '1'),
 ('2', 'suranga', '{bcrypt}$2a$10$wQ8vZl3Zm3.zDSIcZEYym.bGq3fPMJXH9k.Vhudcfr6O6KQwDPSt6','k@krishantha.com', '1', '1', '1', '1'),
-('3', 'nuwan', '{bcrypt}$2a$10$wQ8vZl3Zm3.zDSIcZEYym.bGq3fPMJXH9k.Vhudcfr6O6KQwDPSt6','k@krishantha.com', '1', '1', '1', '1');
+('3', 'nuwan', '{bcrypt}$2a$10$IKqS8RbV3EY5jiG841u0K.df3CSNYLaqiq/xzpEqgAdXxlOkiMAiG','k@krishantha.com', '1', '1', '1', '1');
 
 INSERT INTO auth_server.role_user (role_id, user_id)
     VALUES
