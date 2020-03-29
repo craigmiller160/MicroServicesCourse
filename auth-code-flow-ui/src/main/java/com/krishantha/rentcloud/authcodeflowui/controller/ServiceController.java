@@ -21,7 +21,7 @@ public class ServiceController {
     @GetMapping("/customers")
     public String loadCustomers(final Model model) {
         try {
-            final ResponseEntity<Customer[]> responseEntity = restTemplate.getForEntity("http://localhost:8081/services/customers", Customer[].class);
+            final ResponseEntity<Customer[]> responseEntity = restTemplate.getForEntity("http://localhost:8081/services/customer", Customer[].class);
             model.addAttribute("customers", responseEntity.getBody());
         } catch (HttpStatusCodeException ex) {
             final ResponseEntity responseEntity = ResponseEntity.status(ex.getRawStatusCode()).headers(ex.getResponseHeaders()).body(ex.getResponseBodyAsString());
