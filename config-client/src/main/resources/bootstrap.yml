@@ -4,3 +4,6 @@ spring:
       uri: http://localhost:8191
       profile: dev
       name: auth-server,oauth2
+      fail-fast: true
+      username: user
+      password: password
