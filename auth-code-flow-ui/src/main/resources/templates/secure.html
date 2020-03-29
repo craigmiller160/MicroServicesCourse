@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,6 +10,11 @@
 <div class="container">
     <div class="jumbotron">
         <h1>Auth Code Flow UI - Secure Page</h1>
+    </div>
+    <div class="row">
+        <form name="fetch-customers" th:action="@{/customers}" th:formmethod="POST">
+            <button type="submit" class="btn btn-primary">Customers</button>
+        </form>
     </div>
 </div>
 
