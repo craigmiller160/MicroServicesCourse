@@ -6,5 +6,6 @@ spring:
       server:
         git:
           uri: https://github.com/craigmiller160/practice-spring-cloud-config-store
+          username: craigmiller160@gmail.com
           search-paths:
             - '*'
