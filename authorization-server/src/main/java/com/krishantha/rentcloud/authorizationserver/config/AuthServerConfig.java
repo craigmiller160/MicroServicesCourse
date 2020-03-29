@@ -24,6 +24,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     public AuthServerConfig(final PasswordEncoder passwordEncoder,
                             final DataSource dataSource,
                             final AuthenticationManager authenticationManager) {
+        System.out.println("USING AuthServerConfig"); // TODO delete this
         this.passwordEncoder = passwordEncoder;
         this.dataSource = dataSource;
         this.authenticationManager = authenticationManager;
