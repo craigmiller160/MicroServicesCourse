@@ -20,7 +20,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(final String name) throws UsernameNotFoundException {
-        System.out.println("TRYING TO LOAD"); // TODO delete this
         final User user = userRepository.findByUsername(name)
                 .orElseThrow(() -> new UsernameNotFoundException("Couldn't find user with name " + name));
         final var authUser = new AuthUser(user);
