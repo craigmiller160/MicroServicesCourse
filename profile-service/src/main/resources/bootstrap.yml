@@ -2,4 +2,4 @@ spring:
   cloud:
     config:
       uri: http://localhost:8191
-      profile: dev
+      profile: dev,oauth2
