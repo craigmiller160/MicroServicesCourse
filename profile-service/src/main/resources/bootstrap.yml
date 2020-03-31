@@ -3,7 +3,7 @@ spring:
     config:
       uri: http://localhost:8191
       profile: dev
-      name: profile-service
+      name: profile-service,oauth2
       fail-fast: true
       username: user
       password: password
