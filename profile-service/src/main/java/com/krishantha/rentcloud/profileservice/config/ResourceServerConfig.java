@@ -15,7 +15,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     private final String resourceId;
 
-    public ResourceServerConfig(@Value("${security.oauth2.resource.resourceId}") final String resourceId) {
+    public ResourceServerConfig(@Value("${craigmiller160.security.oauth2.resource.resource-id}") final String resourceId) {
         this.resourceId = resourceId;
     }
 
