@@ -11,11 +11,21 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 import javax.sql.DataSource;
 
 @Configuration
 public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
+
+    // TODO refactor these into properties
+    private String clientId = "mobile";
+    private String clientSecret = "pin";
+    private String jwtSigningKey = "123";
+    private int accessTokenValiditySeconds = 43200;
+    private String[] authorizedGrantTypes = {"password", "authorization_code", "refresh_token"};
+    private int refreshTokenValiditySeconds = 2592000;
 
     private final PasswordEncoder passwordEncoder;
     private final DataSource dataSource;
@@ -33,8 +43,12 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     }
 
     @Bean
-    public TokenStore jdbcTokenStore() {
-        return new JdbcTokenStore(dataSource);
+    public TokenStore jwtTokenStore() {
+        return new JwtTokenStore(accessTokenConverter());
+    }
+
+    public JwtAccessTokenConverter accessTokenConverter() {
+        return new JwtAccessTokenConverter();
     }
 
     @Override
@@ -45,13 +59,22 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.jdbc(dataSource).passwordEncoder(passwordEncoder);
+        // TODO move back to datasource based clients config
+        clients.inMemory()
+                .withClient(clientId)
+                .secret(passwordEncoder.encode(clientSecret))
+                .accessTokenValiditySeconds(accessTokenValiditySeconds)
+                .refreshTokenValiditySeconds(refreshTokenValiditySeconds)
+                .authorizedGrantTypes(authorizedGrantTypes)
+                .scopes("read", "write")
+                .resourceIds("api"); // TODO try assigning different APIs to different services
+//        clients.jdbc(dataSource).passwordEncoder(passwordEncoder);
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.authenticationManager(authenticationManager)
-                .tokenStore(jdbcTokenStore())
-                .userDetailsService(userDetailsService);
+                .userDetailsService(userDetailsService)
+                .accessTokenConverter(accessTokenConverter());
     }
 }
