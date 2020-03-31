@@ -3,3 +3,8 @@ server:
 spring:
   application:
     name: profile-service
+security:
+  oauth2:
+    resource:
+      jwt:
+        key-value: 123

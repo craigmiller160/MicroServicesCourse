@@ -19,6 +19,9 @@ import javax.sql.DataSource;
 @Configuration
 public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
+    // TODO refactor these into properties
+    private String jwtSigningKey = "123";
+
     private final PasswordEncoder passwordEncoder;
     private final DataSource dataSource;
     private final AuthenticationManager authenticationManager;
@@ -40,7 +43,9 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     }
 
     public JwtAccessTokenConverter accessTokenConverter() {
-        return new JwtAccessTokenConverter();
+        final var converter = new JwtAccessTokenConverter();
+        converter.setSigningKey(jwtSigningKey);
+        return converter;
     }
 
     @Override
