@@ -2,4 +2,8 @@ spring:
   cloud:
     config:
       uri: http://localhost:8191
-      profile: dev,oauth2
+      profile: dev
+      name: profile-service
+      fail-fast: true
+      username: user
+      password: password
