@@ -17,6 +17,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
 import javax.sql.DataSource;
+import java.security.KeyPair;
 
 @Configuration
 public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
@@ -28,15 +29,18 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     private final DataSource dataSource;
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
+    private final KeyPair keyPair;
 
     public AuthServerConfig(final PasswordEncoder passwordEncoder,
                             final DataSource dataSource,
                             final AuthenticationManager authenticationManager,
-                            final UserDetailsService userDetailsService) {
+                            final UserDetailsService userDetailsService,
+                            final KeyPair keyPair) {
         this.passwordEncoder = passwordEncoder;
         this.dataSource = dataSource;
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
+        this.keyPair = keyPair;
     }
 
     @Bean
@@ -45,9 +49,6 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     }
 
     public JwtAccessTokenConverter accessTokenConverter() {
-        final var keystore = new ClassPathResource("keystore.jks");
-        final var keyStoreFactory = new KeyStoreKeyFactory(keystore, "password".toCharArray());
-        final var keyPair = keyStoreFactory.getKeyPair("oauth-jwt");
         final var converter = new JwtAccessTokenConverter();
         converter.setKeyPair(keyPair);
         return converter;
