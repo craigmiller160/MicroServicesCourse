@@ -1,5 +1,6 @@
 package com.krishantha.rentcloud.authorizationserver.config;
 
+import com.krishantha.rentcloud.authorizationserver.jwt.RsaCustomHeaderJwtTokenConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -18,6 +19,8 @@ import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFacto
 
 import javax.sql.DataSource;
 import java.security.KeyPair;
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
@@ -49,7 +52,8 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     }
 
     public JwtAccessTokenConverter accessTokenConverter() {
-        final var converter = new JwtAccessTokenConverter();
+        final Map<String, String> headers = Map.of("kid", "oauth-jwt");
+        final var converter = new RsaCustomHeaderJwtTokenConverter(headers, keyPair);
         converter.setKeyPair(keyPair);
         return converter;
     }
