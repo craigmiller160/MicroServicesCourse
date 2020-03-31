@@ -2,6 +2,7 @@ package com.krishantha.rentcloud.authorizationserver.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +14,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
 import javax.sql.DataSource;
 
@@ -43,8 +45,11 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     }
 
     public JwtAccessTokenConverter accessTokenConverter() {
+        final var keystore = new ClassPathResource("keystore.jks");
+        final var keyStoreFactory = new KeyStoreKeyFactory(keystore, "password".toCharArray());
+        final var keyPair = keyStoreFactory.getKeyPair("oauth-jwt");
         final var converter = new JwtAccessTokenConverter();
-        converter.setSigningKey(jwtSigningKey);
+        converter.setKeyPair(keyPair);
         return converter;
     }
 
