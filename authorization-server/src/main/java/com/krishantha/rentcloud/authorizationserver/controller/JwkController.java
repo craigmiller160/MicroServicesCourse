@@ -17,7 +17,7 @@ public class JwkController {
         this.jwkSet = jwkSet;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public Map<String, Object> keys() {
         return this.jwkSet.toJSONObject();
     }
