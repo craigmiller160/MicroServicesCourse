@@ -3,8 +3,6 @@ server:
 spring:
   application:
     name: profile-service
-security:
-  oauth2:
-    resource:
-      jwt:
-        key-value: 123
+logging:
+  level:
+    org.springframework.security: DEBUG
