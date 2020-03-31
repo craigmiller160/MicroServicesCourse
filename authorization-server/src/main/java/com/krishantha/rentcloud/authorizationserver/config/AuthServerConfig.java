@@ -19,14 +19,6 @@ import javax.sql.DataSource;
 @Configuration
 public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    // TODO refactor these into properties
-    private String clientId = "mobile";
-    private String clientSecret = "pin";
-    private String jwtSigningKey = "123";
-    private int accessTokenValiditySeconds = 43200;
-    private String[] authorizedGrantTypes = {"password", "authorization_code", "refresh_token"};
-    private int refreshTokenValiditySeconds = 2592000;
-
     private final PasswordEncoder passwordEncoder;
     private final DataSource dataSource;
     private final AuthenticationManager authenticationManager;
@@ -59,16 +51,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        // TODO move back to datasource based clients config
-        clients.inMemory()
-                .withClient(clientId)
-                .secret(passwordEncoder.encode(clientSecret))
-                .accessTokenValiditySeconds(accessTokenValiditySeconds)
-                .refreshTokenValiditySeconds(refreshTokenValiditySeconds)
-                .authorizedGrantTypes(authorizedGrantTypes)
-                .scopes("read", "write")
-                .resourceIds("api"); // TODO try assigning different APIs to different services
-//        clients.jdbc(dataSource).passwordEncoder(passwordEncoder);
+        clients.jdbc(dataSource).passwordEncoder(passwordEncoder);
     }
 
     @Override
