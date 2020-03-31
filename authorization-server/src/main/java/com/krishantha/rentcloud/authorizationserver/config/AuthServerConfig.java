@@ -1,9 +1,9 @@
 package com.krishantha.rentcloud.authorizationserver.config;
 
 import com.krishantha.rentcloud.authorizationserver.jwt.RsaCustomHeaderJwtTokenConverter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,38 +12,37 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
-import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
 import javax.sql.DataSource;
 import java.security.KeyPair;
-import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
 public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    // TODO refactor these into properties
-    private String jwtSigningKey = "123";
+    private static final String KEY_ID = "kid";
 
     private final PasswordEncoder passwordEncoder;
     private final DataSource dataSource;
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
     private final KeyPair keyPair;
+    private final String kid;
 
     public AuthServerConfig(final PasswordEncoder passwordEncoder,
                             final DataSource dataSource,
                             final AuthenticationManager authenticationManager,
                             final UserDetailsService userDetailsService,
-                            final KeyPair keyPair) {
+                            final KeyPair keyPair,
+                            @Value("${craigmiller160.security.oauth2.auth-server.kid}") final String kid) {
         this.passwordEncoder = passwordEncoder;
         this.dataSource = dataSource;
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
         this.keyPair = keyPair;
+        this.kid = kid;
     }
 
     @Bean
@@ -52,7 +51,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     }
 
     public JwtAccessTokenConverter accessTokenConverter() {
-        final Map<String, String> headers = Map.of("kid", "oauth-jwt");
+        final Map<String, String> headers = Map.of(KEY_ID, kid);
         final var converter = new RsaCustomHeaderJwtTokenConverter(headers, keyPair);
         converter.setKeyPair(keyPair);
         return converter;
