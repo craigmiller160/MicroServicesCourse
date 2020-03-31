@@ -26,7 +26,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        // TODO I think this is using BCrypt under the hood... Maybe...
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 

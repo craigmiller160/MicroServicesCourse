@@ -20,13 +20,16 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     private final PasswordEncoder passwordEncoder;
     private final DataSource dataSource;
     private final AuthenticationManager authenticationManager;
+    private final UserDetailsService userDetailsService;
 
     public AuthServerConfig(final PasswordEncoder passwordEncoder,
                             final DataSource dataSource,
-                            final AuthenticationManager authenticationManager) {
+                            final AuthenticationManager authenticationManager,
+                            final UserDetailsService userDetailsService) {
         this.passwordEncoder = passwordEncoder;
         this.dataSource = dataSource;
         this.authenticationManager = authenticationManager;
+        this.userDetailsService = userDetailsService;
     }
 
     @Bean
@@ -48,6 +51,7 @@ public class AuthServerConfig extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.authenticationManager(authenticationManager)
-                .tokenStore(jdbcTokenStore());
+                .tokenStore(jdbcTokenStore())
+                .userDetailsService(userDetailsService);
     }
 }
