@@ -16,9 +16,9 @@ public class AuthServerSecurityConfig extends AuthorizationServerSecurityConfigu
     protected void configure(final HttpSecurity http) throws Exception {
         http
                 .requestMatchers()
-                .mvcMatchers("/.well-known/jwks.json")
+                .mvcMatchers("/jwk")
                 .and()
-                .authorizeRequests().mvcMatchers("/.well-known/jwks.json").permitAll();
+                .authorizeRequests().mvcMatchers("/jwk").permitAll();
     }
 
 }
