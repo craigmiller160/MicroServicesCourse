@@ -12,4 +12,9 @@ security:
       user-authorization-uri: http://localhost:8083/oauth/authorize
       access-token-uri: http://localhost:8083/oauth/token
     resource:
-      token-info-uri: http://localhost:8083/oauth/check_token
+      #token-info-uri: http://localhost:8083/oauth/check_token
+      jwk:
+        key-set-uri: http://localhost:8083/jwk
+logging:
+  level:
+    org.springframework.security: DEBUG
