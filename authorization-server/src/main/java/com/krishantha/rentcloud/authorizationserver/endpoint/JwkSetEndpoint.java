@@ -18,7 +18,7 @@ public class JwkSetEndpoint {
         this.jwkSet = jwkSet;
     }
 
-    @GetMapping("/jwk")
+    @GetMapping("/.well-known/jwks.json")
     @ResponseBody
     public Map<String,Object> getKey(final Principal principal) { // TODO try removing this argument
         return this.jwkSet.toJSONObject();
