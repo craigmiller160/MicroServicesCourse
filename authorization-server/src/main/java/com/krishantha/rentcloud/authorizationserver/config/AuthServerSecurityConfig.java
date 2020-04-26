@@ -17,7 +17,7 @@ public class AuthServerSecurityConfig extends AuthorizationServerSecurityConfigu
     protected void configure(final HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .mvcMatchers("/jwk").permitAll() // TODO try an ant matcher
+                .antMatchers("/jwk").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic()
