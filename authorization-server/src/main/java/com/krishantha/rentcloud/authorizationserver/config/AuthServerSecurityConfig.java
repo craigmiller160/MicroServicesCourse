@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerSecurityConfiguration;
+import org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint;
 
 @Configuration
 public class AuthServerSecurityConfig extends AuthorizationServerSecurityConfiguration {
@@ -15,10 +16,12 @@ public class AuthServerSecurityConfig extends AuthorizationServerSecurityConfigu
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
-                .requestMatchers()
-                .mvcMatchers("/jwk")
+                .authorizeRequests()
+                .mvcMatchers("/jwk").permitAll() // TODO try an ant matcher
+                .anyRequest().authenticated()
                 .and()
-                .authorizeRequests().mvcMatchers("/jwk").permitAll();
+                .httpBasic()
+                .authenticationEntryPoint(new OAuth2AuthenticationEntryPoint());
     }
 
 }
