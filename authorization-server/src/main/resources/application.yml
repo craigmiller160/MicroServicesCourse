@@ -6,4 +6,4 @@ spring:
 logging:
   level:
     org.hibernate: ERROR
-    org.springframework.security: ERROR
+    org.springframework.security: DEBUG
