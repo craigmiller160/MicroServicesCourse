@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
-@RestController
-@RequestMapping("/jwk")
+//@RestController
+//@RequestMapping("/jwk")
 public class JwkController {
 
     private final JWKSet jwkSet;
@@ -17,7 +17,7 @@ public class JwkController {
         this.jwkSet = jwkSet;
     }
 
-    @GetMapping
+//    @GetMapping
     public Map<String, Object> keys() {
         return this.jwkSet.toJSONObject();
     }
